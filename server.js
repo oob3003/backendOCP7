@@ -8,11 +8,12 @@ const normalizePort = val => {
     return val;
   }
   if (port >= 0) {
+    
     return port;
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || '3305'); // précise sur quel port doit tourner l'app express (on dit qu'on 'set ' le port).
+const port = normalizePort(process.env.PORT || '3000'); // précise sur quel port doit tourner l'app express (on dit qu'on 'set ' le port).
 app.set('port', port);
 
 const errorHandler = error => {
