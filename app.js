@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 
 const app = express();
-require('dotenv').config()
 
 const userRoute = require('./routes/user');
 // CORS obligatoire car front et back ont deux URL distincts
@@ -16,7 +15,7 @@ app.use((req, res, next) => {
 app.use(helmet());
 app.use(bodyParser.json());
 
-app.use('/api', userRoute)
+app.use('/api', userRoute) // chemin pour les requêtes via l'API ( localhost:3000/api )
 
 app.post('/api/post', (req, res, next) => {
     console.log(req.body);

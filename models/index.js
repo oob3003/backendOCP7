@@ -1,7 +1,7 @@
 // models/index.js centralise les constantes réutilisables
 
 const  Sequelize  = require('sequelize');
-
+require('dotenv').config() // sécurisation de la connexion à la DB
 const fs = require('fs'); // gestion des fichiers dans Node
 const path = require('path');
 
@@ -9,6 +9,12 @@ const baseName = path.basename(__filename);
 const DB = {};
 // connexion à la base données ocp7db
 let sequelize;
+/*const db = require('db')
+DB.connect({
+  host: process.env.DB_HOST,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS
+})*/
 sequelize = new Sequelize ( 'ocp7db', 'oob3003', 'OCP7oob3003!', { host: 'localhost', dialect: 'mysql'});
 sequelize.authenticate()
     .then (() => console.log('connexion établie'))
