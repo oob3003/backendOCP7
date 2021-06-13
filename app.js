@@ -5,6 +5,9 @@ const helmet = require('helmet');
 const app = express();
 
 const userRoute = require('./routes/user');
+const postRoute = require('./routes/post');
+//const commentRoute = require('./routes/comment');
+
 // CORS obligatoire car front et back ont deux URL distincts
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -16,13 +19,17 @@ app.use(helmet());
 app.use(bodyParser.json());
 
 app.use('/api', userRoute) // chemin pour les requêtes via l'API ( localhost:3000/api )
+app.use('/post', postRoute)
 
-app.post('/api/post', (req, res, next) => {
+//app.use('/comment', commentRoute)
+
+
+/*app.post('/api/post', (req, res, next) => {
     console.log(req.body);
     res.status(201).json({
         message:'Message créé !'
     });
-});
+});  */
 
 /*app.use('/api/post', (req, res, next) => {
     const post = [
