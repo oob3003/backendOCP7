@@ -16,7 +16,7 @@ router.post('/', auth, multer, postCtrl.createPosts);
 //router.delete('/:id', auth, postCtrl.deletePosts);
 
 // récupérer tous les posts
-//router.get('/', auth, postCtrl.findAllPosts);
+router.get('/', postCtrl.findAllPosts);
 
 // récupérer un post en particulier
 //router.get('/:id', auth, postCtrl.findOnePosts);

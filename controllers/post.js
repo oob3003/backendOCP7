@@ -18,7 +18,7 @@ exports.createPosts = (req, res, next) =>{
     .then(() => res.status(201).json({ message: 'Post enregistré !'}))
     .catch(error => res.status(400).json({ error }));
 };
-
+/*
 exports.modifyPosts = (req, res, next) => {
     const postsObject = req.file ? // vérifie si req.file existe, 
     {
@@ -29,7 +29,8 @@ exports.modifyPosts = (req, res, next) => {
       .then(() => res.status(200).json({ message: 'Post modifié !'}))
       .catch(error => res.status(400).json({ error }));
 };
-
+*/
+/*
 exports.deletePosts = (req, res, next) => {
     Posts.findOne({ _id: req.params.id })
     .then(posts => {
@@ -42,19 +43,20 @@ exports.deletePosts = (req, res, next) => {
     })
     .catch(error => res.status(400).json({ error }));
 };
-
+*/
 exports.findAllPosts = (req, res, next) => {
-    Posts.find()
+    models.posts.findAll()
         .then(posts => res.status(200).json(posts))
         .catch(error => res.status(400).json({ error }));
 };
-
+/*
 exports.findOneSauces = (req, res, next) => {
     Posts.findOne({ _id: req.params.id })
         .then(posts => res.status(200).json(posts))
         .catch(error => res.status(404).json({ error }));
 };
-
+*/
+/*
 exports.likeSauces = (req, res, next) =>{
   switch(req.body.like){
     case 0 : Sauces.findOne({ _id: req.params.id })
@@ -125,7 +127,7 @@ exports.likeSauces = (req, res, next) =>{
     }
   
 };
-
+*/
 exports.list = ( req, res, next ) => {
   models.posts.findAll({ 
     include: { model: models.users},
