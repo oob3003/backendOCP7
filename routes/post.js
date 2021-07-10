@@ -8,7 +8,7 @@ const multer = require('../middleware/multer-config');
 
 // déposer un nouveau post
 router.post('/', auth, multer, postCtrl.createPosts); 
-    
+ 
 // modifier un post
 //router.put('/:id', auth, multer, postCtrl.modifyPosts); 
 

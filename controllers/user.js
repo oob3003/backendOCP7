@@ -48,8 +48,18 @@ exports.login = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 };
 
-exports.list = ( req, res, next ) => {
+exports.allUsers = ( req, res, next ) => {
     models.users.findAll()
         .then(users => res.status(200).json(users))
+        .catch(error => res.status(400).json({ error }));
+};
+
+exports.list = ( req, res, next ) => {
+  models.users.findAll({ 
+    //include: { model: models.users},
+    where: { userId:req.params.id},
+    order: [["createdAt","DESC"]]
+  })
+        .then(posts => res.status(200).json(posts))
         .catch(error => res.status(400).json({ error }));
 };

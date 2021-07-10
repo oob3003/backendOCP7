@@ -19,7 +19,7 @@ exports.createComments = (req, res, next) =>{
 };
 
 
-exports.list = ( req, res, next ) => {
+exports.allUsers = ( req, res, next ) => {
     models.comments.findAll({ 
       include: { model: models.users},
       where: { userId:req.params.id},
