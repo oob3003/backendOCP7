@@ -23,13 +23,13 @@ app.use('/post', postRoute)
 
 //app.use('/comment', commentRoute)
 
-
-/*app.post('/api/post', (req, res, next) => {
+//ajout 10/07
+app.post('/api/post', (req, res, next) => {
     console.log(req.body);
     res.status(201).json({
         message:'Message créé !'
     });
-});  */
+}); 
 
 /*app.use('/api/post', (req, res, next) => {
     const post = [

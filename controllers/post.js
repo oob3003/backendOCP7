@@ -4,7 +4,6 @@ const fs = require('fs');
 // création d'un post
 exports.createPosts = (req, res, next) =>{
     const postsObject = JSON.parse(req.body.post); // parse en json le corps de la requête
-    //delete postsObject._id; // MongoDB génère lui-même un id
     const posts = new Posts ({ 
         ...postsObject, // fait une copie de tous les éléments de saucesObject puis on ajoute les éléments ci-dessous
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`, // résoud l'URL complète de notre image
