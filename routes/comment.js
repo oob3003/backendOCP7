@@ -2,11 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const commentCtrl = require('../controllers/comment');
-const auth = require('../middleware/auth');
-const multer = require('../middleware/multer-config');
+// const auth = require('../middleware/auth');
+// const multer = require('../middleware/multer-config');
 
-// récupérer un post en particulier
-router.get('/:id', auth, commentCtrl.getOnePosts);
 
 // déposer un nouveau comment
-router.post('/', auth, multer, commentCtrl.createComments); 
+router.post('/',  commentCtrl.createComments); //auth, multer,
+
+// récupérer tous les comments
+router.get('/:id', commentCtrl.findAllComments);
+//router.get('/latestPosts', postCtrl.findAllPostsByDate);
+module.exports = router;

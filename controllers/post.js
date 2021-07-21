@@ -1,34 +1,43 @@
 const models = require('../models');
 const fs = require('fs');
-
 // création d'un post
 exports.createPosts = (req, res, next) =>{
-    const postsObject = JSON.parse(req.body.post); // parse en json le corps de la requête
-    const posts = new Posts ({ 
-        ...postsObject, // fait une copie de tous les éléments de saucesObject puis on ajoute les éléments ci-dessous
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`, // résoud l'URL complète de notre image
-        likes: 0,
-        dislikes: 0,
-        usersLiked: [],
-        usersDisliked: []
-
-    });
-    posts.save() //sauvegarde le post créé
+    models.posts.create({
+      title: req.body.title,
+      content: req.body.content,
+      visible: 0,
+      userId: req.body.userId
+    })
     .then(() => res.status(201).json({ message: 'Post enregistré !'}))
     .catch(error => res.status(400).json({ error }));
 };
-/*
-exports.modifyPosts = (req, res, next) => {
-    const postsObject = req.file ? // vérifie si req.file existe, 
-    {
-      ...JSON.parse(req.body.post), // alors on récupère le corps (req.body.sauce)
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // on modifie notre image
-    } : { ...req.body }; // si req.file n'existe pas, alors on copie req.body
-    Posts.updateOne({ _id: req.params.id }, { ...postsObject, _id: req.params.id }) // on modifie l'id pour correspondre aux paramètres de la requête
-      .then(() => res.status(200).json({ message: 'Post modifié !'}))
+
+exports.findAllPosts = (req, res, next) => {
+    models.posts.findAll()
+        .then(posts => res.status(200).json(posts))
+        .catch(error => res.status(400).json({ error }));
+};
+
+exports.findAllPostsByDate = (req, res, next) => {
+  models.posts.findAll({
+    where:{visible:1},
+    order:[["updatedAt","DESC"]],
+    limit: 4
+  })
+      .then(posts => res.status(200).json(posts))
       .catch(error => res.status(400).json({ error }));
 };
-*/
+
+exports.findOnePosts = (req, res, next) => {
+    models.posts.findOne({ 
+      where:{id: req.params.id}
+
+    })
+        .then(posts => res.status(200).json(posts))
+        .catch(error => res.status(404).json({ error }));
+};
+
+
 /*
 exports.deletePosts = (req, res, next) => {
     Posts.findOne({ _id: req.params.id })
@@ -43,18 +52,7 @@ exports.deletePosts = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 };
 */
-exports.findAllPosts = (req, res, next) => {
-    models.posts.findAll()
-        .then(posts => res.status(200).json(posts))
-        .catch(error => res.status(400).json({ error }));
-};
-/*
-exports.findOneSauces = (req, res, next) => {
-    Posts.findOne({ _id: req.params.id })
-        .then(posts => res.status(200).json(posts))
-        .catch(error => res.status(404).json({ error }));
-};
-*/
+
 /*
 exports.likeSauces = (req, res, next) =>{
   switch(req.body.like){

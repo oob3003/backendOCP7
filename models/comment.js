@@ -5,7 +5,8 @@ module.exports = ( sequelize, DataTypes) => {
     visible: { type: DataTypes.BOOLEAN },
   },{});
   comments.associate = function(models){
-  models.comments.belongsTo(models.users,{foreignKey: {allowNull:false},/*foreignKey: {allowNull:false}*/})
+    models.comments.belongsTo(models.posts,{foreignKey: 'postId', allowNull:false,/*foreignKey: {allowNull:false}*/})
+    models.comments.belongsTo(models.users,{foreignKey: 'userId', allowNull:false,/*foreignKey: {allowNull:false}*/})
   };
   return comments;
 }
