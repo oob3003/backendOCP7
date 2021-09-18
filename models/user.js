@@ -4,7 +4,7 @@ module.exports = ( sequelize, DataTypes) => {
     lastname: { type: DataTypes.STRING, allowNull: false },
     email: { type: DataTypes.STRING, allowNull: false, unique: true },
     password: { type: DataTypes.STRING, allowNull: false },
-    status: { type: DataTypes.TEXT('tiny') , allowNull: false }
+    status: { type: DataTypes.TEXT('tiny') , allowNull: false } // 0 pour user en attente de validation, 1 pour user validé, 2 pour admin
   },{});
   users.associate = function(models){
     models.users.hasMany(models.posts)

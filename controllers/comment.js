@@ -6,7 +6,7 @@ exports.createComments = (req, res, next) =>{
     models.comments.create({
       title: req.body.title,
       content: req.body.content,
-      visible: 0,
+      visible: "",
       postId: req.body.postId,
       userId: req.body.userId //token
     })
@@ -14,7 +14,7 @@ exports.createComments = (req, res, next) =>{
     .catch(error => res.status(400).json({ error }));
 };
 // extraire tous les commentaires
-exports.findAllComments = (req, res, next) => {
+exports.findAllCommentsByPost = (req, res, next) => {
     models.comments.findAll({
       include: { model: models.posts},
       where: { postId:req.params.id},

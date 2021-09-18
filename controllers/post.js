@@ -5,7 +5,7 @@ exports.createPosts = (req, res, next) =>{
     models.posts.create({
       title: req.body.title,
       content: req.body.content,
-      visible: 0,
+      visible: "",
       userId: req.body.userId
     })
     .then(() => res.status(201).json({ message: 'Post enregistré !'}))

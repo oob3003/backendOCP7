@@ -6,7 +6,7 @@ const userCtrl = require('../controllers/user');
 
 router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
-//router.get('/user', userCtrl.findAllUsers); // permet d'obtenir la liste des users
+router.get('/user', userCtrl.allUsers); // permet d'obtenir la liste des users
 
 
 

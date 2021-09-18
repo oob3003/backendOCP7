@@ -10,6 +10,6 @@ const commentCtrl = require('../controllers/comment');
 router.post('/',  commentCtrl.createComments); //auth, multer,
 
 // récupérer tous les comments
-router.get('/:id', commentCtrl.findAllComments);
+router.get('/:id', commentCtrl.findAllCommentsByPost);
 //router.get('/latestPosts', postCtrl.findAllPostsByDate);
 module.exports = router;
