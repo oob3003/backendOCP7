@@ -18,6 +18,15 @@ exports.findAllPosts = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 };
 
+exports.findAllPostsValidated = (req, res, next) => {
+  models.posts.findAll({
+    where:{visible:1},
+    order:[["updatedAt","DESC"]],
+  })
+      .then(posts => res.status(200).json(posts))
+      .catch(error => res.status(400).json({ error }));
+};
+
 exports.findAllPostsByDate = (req, res, next) => {
   models.posts.findAll({
     where:{visible:1},

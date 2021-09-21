@@ -39,11 +39,11 @@ exports.signup = (req, res, next) => {
 
 exports.login = (req, res, next) => {
     let admin;
-    models.users.findOne({where: { email: req.body.email }})
+    models.users.findOne({where: { email: req.body.email }} && {where: { firstname: req.body.firstname }})  // vérif email et firstname
     .then(user => { 
       console.log(user.password)
       if (!user) {
-        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+        return res.status(401).json({ "error": "true", "msg": 'Utilisateur non trouvé !' });
       }
 
     console.log(req.body.password)

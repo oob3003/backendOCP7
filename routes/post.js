@@ -17,8 +17,11 @@ router.post('/', postCtrl.createPosts);
 // récupérer tous les posts
 router.get('/', postCtrl.findAllPosts);
 
+//récupérer les posts validés par l'admin
+router.get('/wallOfPosts', postCtrl.findAllPostsValidated)
+
 //récupérer les X derniers posts
-router.get('/latestPosts', postCtrl.findAllPostsByDate);
+router.get('/latestsPosts', postCtrl.findAllPostsByDate);
 
 // récupérer un post en particulier
 router.get('/:id', postCtrl.findOnePosts);
