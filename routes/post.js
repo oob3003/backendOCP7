@@ -8,6 +8,9 @@ const postCtrl = require('../controllers/post');
 
 // déposer un nouveau post
 router.post('/', postCtrl.createPosts); 
+
+// traitement de la coche "visible"
+router.put('/:id', postCtrl.modifyCheckPost); 
  
 // modifier un post
 //router.put('/:id', auth, multer, postCtrl.modifyPosts); 

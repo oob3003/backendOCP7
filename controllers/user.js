@@ -37,6 +37,17 @@ exports.signup = (req, res, next) => {
   }
 };
 
+exports.modifyCheckUser = (req, res, next) =>{
+  console.log(req.body.visible)
+  models.users.update({
+    visible: req.body.visible
+  } ,
+    {where:{id: req.params.id}}
+  )
+  .then(() => res.status(200).json({ message: 'Utilisateur visible !'}))
+  .catch(error => res.status(400).json({ error }));
+};
+
 exports.login = (req, res, next) => {
     let admin;
     models.users.findOne({where: { email: req.body.email }} && {where: { firstname: req.body.firstname }})  // vérif email et firstname
@@ -79,10 +90,32 @@ exports.login = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+exports.modifyCheckUser = (req, res, next) =>{
+  console.log(req.body.visible)
+  models.users.update({
+    visible: req.body.visible
+  } ,
+    {where:{id: req.params.id}}
+  )
+  .then(() => res.status(200).json({ message: 'Utilisateur visible !'}))
+  .catch(error => res.status(400).json({ error }));
+};
+
+
 exports.allUsers = ( req, res, next ) => {
     models.users.findAll()
         .then(users => res.status(200).json(users))
         .catch(error => res.status(400).json({ error }));
+};
+
+exports.findAllUsersValidated = (req, res, next) => {
+  models.users.findAll({
+    where:{visible:1},
+    order:[["updatedAt","DESC"]],
+
+  })
+      .then(users => res.status(200).json(users))
+      .catch(error => res.status(400).json({ error }));
 };
 
 exports.list = ( req, res, next ) => {

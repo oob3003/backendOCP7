@@ -12,6 +12,17 @@ exports.createPosts = (req, res, next) =>{
     .catch(error => res.status(400).json({ error }));
 };
 
+exports.modifyCheckPost = (req, res, next) =>{
+  console.log(req.body.visible)
+  models.posts.update({
+    visible: req.body.visible
+  } ,
+    {where:{id: req.params.id}}
+  )
+  .then(() => res.status(200).json({ message: 'Post visible !'}))
+  .catch(error => res.status(400).json({ error }));
+};
+
 exports.findAllPosts = (req, res, next) => {
     models.posts.findAll()
         .then(posts => res.status(200).json(posts))
