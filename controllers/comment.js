@@ -24,6 +24,14 @@ exports.findAllCommentsByPost = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 };
 
+// exports.findAllCommentsValidated = (req, res, next) => {
+//   models.comments.findAll({
+//     where:{visible:1},
+//     order:[["updatedAt","DESC"]],
+//   })
+//       .then(comments => res.status(200).json(comments))
+//       .catch(error => res.status(400).json({ error }));
+// };
 
 // exports.allUsers = ( req, res, next ) => {
 //     models.comments.findAll({ 

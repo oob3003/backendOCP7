@@ -7,8 +7,9 @@ const userCtrl = require('../controllers/user');
 router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
 router.get('/user', userCtrl.allUsers); // permet d'obtenir la liste des users
+router.get('/user/:id', userCtrl.findOneUserValidated);// récupération d'un utilisateur
 // router.get('/allUsers', userCtrl.findAllUsersValidated);
 router.put('/user/:id', userCtrl.modifyCheckUser); // permet la validation de l'utilisateur
-
-
+// 
+router.delete('/user/:id', userCtrl.deleteUser);
 module.exports = router; 
