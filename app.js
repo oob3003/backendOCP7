@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 app.use(helmet());
 app.use(bodyParser.json());
 
-app.use('/api', userRoute) // chemin pour les requêtes via l'API ( localhost:3000/api )
+app.use('/api', userRoute);// chemin pour les requêtes via l'API ( localhost:3000/api )
 app.use('/post', postRoute);
 app.use('/comment', commentRoute);
 

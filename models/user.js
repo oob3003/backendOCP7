@@ -8,7 +8,9 @@ module.exports = ( sequelize, DataTypes) => {
     status: { type: DataTypes.TEXT('tiny') , allowNull: false },// 0 pour user en attente de validation, 1 pour user validé, 2 pour admin
   },{});
   users.associate = function(models){
-    models.users.hasMany(models.posts)
+    models.users.hasMany(models.posts);
+    models.users.hasMany(models.comments)
+
   };
   return users;
 }

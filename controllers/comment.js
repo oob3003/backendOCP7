@@ -13,15 +13,33 @@ exports.createComments = (req, res, next) =>{
     .then(() => res.status(201).json({ message: 'Comment enregistré !'}))
     .catch(error => res.status(400).json({ error }));
 };
-// extraire tous les commentaires
-exports.findAllCommentsByPost = (req, res, next) => {
+// checkbox Comment
+exports.modifyCheckComment = (req, res, next) =>{
+  console.log(req.body.visible)
+  models.comments.update({
+    visible: req.body.visible
+  } ,
+    {where:{id: req.params.id}}
+  )
+  .then(() => res.status(200).json({ message: 'Comment visible !'}))
+  .catch(error => res.status(400).json({ error }));
+};
+// récupérer tous les comments
+exports.findAllComments = (req, res, next) => {
+  models.comments.findAll()   
+      .then(comments => res.status(200).json(comments))
+      .catch(error => res.status(400).json({ error }));
+};
+// extraire tous les commentaires classés par post
+exports.findAllCommentsValidatedForOnePost = (req, res, next) => {
+  console.log("OK");
     models.comments.findAll({
-      include: { model: models.posts},
+      include: models.posts , //modif du 13/10,
       where: { postId:req.params.id},
       order: [["createdAt","DESC"]]
     })
         .then(comments => res.status(200).json(comments))
-        .catch(error => res.status(400).json({ error }));
+        .catch(error => res.status(400).json({ error: blabla }));
 };
 
 // exports.findAllCommentsValidated = (req, res, next) => {
@@ -33,7 +51,7 @@ exports.findAllCommentsByPost = (req, res, next) => {
 //       .catch(error => res.status(400).json({ error }));
 // };
 
-// exports.allUsers = ( req, res, next ) => {
+// exports.allCommentsByPost = ( req, res, next ) => {
 //     models.comments.findAll({ 
 //       include: { model: models.users},
 //       where: { userId:req.params.id},

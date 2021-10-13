@@ -8,10 +8,13 @@ const commentCtrl = require('../controllers/comment');
 // déposer un nouveau comment
 router.post('/',  commentCtrl.createComments); //auth, multer,
 
-// récup ts comments test 25sept
-//router.get('/allCommentsToValid', commentCtrl.findAllCommentsValidated);
+// traitement de la coche "visible"
+router.put('/:id', commentCtrl.modifyCheckComment); 
+
+// récup ts comments pour un post
+router.get('/allCommentsForOnePost/:id', commentCtrl.findAllCommentsValidatedForOnePost);
 
 // récupérer tous les comments
-router.get('/:id', commentCtrl.findAllCommentsByPost);
+router.get('/', commentCtrl.findAllComments);
 //router.get('/latestPosts', postCtrl.findAllPostsByDate);
 module.exports = router;

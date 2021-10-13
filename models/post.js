@@ -5,7 +5,8 @@ module.exports = ( sequelize, DataTypes) => {
       visible: { type: DataTypes.BOOLEAN },
     },{});
     posts.associate = function(models){
-        models.posts.belongsTo(models.users,{foreignKey: {allowNull:false}})
+        models.posts.belongsTo(models.users,{foreignKey: {allowNull:false}});
+        models.posts.hasMany(models.comments)
     };
     return posts;
   }
