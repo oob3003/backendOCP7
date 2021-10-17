@@ -10,6 +10,6 @@ router.get('/user', userCtrl.allUsers); // permet d'obtenir la liste des users
 router.get('/user/:id', userCtrl.findOneUserValidated);// récupération d'un utilisateur
 // router.get('/allUsers', userCtrl.findAllUsersValidated);
 router.put('/user/:id', userCtrl.modifyCheckUser); // permet la validation de l'utilisateur
-// 
+router.put('/user/addUserPhoto', userCtrl.modifyPhotoUser); // permet d'afficher la photo de l'utilisateur
 router.delete('/user/:id', userCtrl.deleteUser);
 module.exports = router; 

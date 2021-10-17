@@ -1,6 +1,6 @@
 module.exports = ( sequelize, DataTypes) => {
   const users = sequelize.define('users', {
-    //imageUrl: { type: DataTypes.STRING },
+    imageUrl: { type: DataTypes.STRING },
     firstname: { type: DataTypes.STRING, allowNull: false },
     lastname: { type: DataTypes.STRING, allowNull: false },
     email: { type: DataTypes.STRING, allowNull: false, unique: true },

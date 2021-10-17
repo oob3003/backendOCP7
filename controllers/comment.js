@@ -11,7 +11,7 @@ exports.createComments = (req, res, next) =>{
       userId: req.body.userId //token
     })
     .then(() => res.status(201).json({ message: 'Comment enregistré !'}))
-    .catch(error => res.status(400).json({ error }));
+    .catch(error => res.status(400).json({ error: "ouch" }));
 };
 // checkbox Comment
 exports.modifyCheckComment = (req, res, next) =>{

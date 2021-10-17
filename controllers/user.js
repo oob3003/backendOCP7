@@ -134,6 +134,18 @@ exports.findOneUserValidated = ( req, res, next ) => {
       .then(users => res.status(200).json(users))
       .catch(error => res.status(400).json({ error }));
 };
+// modifier le profil utilisateur pour ajouter une photo
+exports.modifyPhotoUser = (req, res, next) =>{
+  console.log(req.body.imageURL)
+  models.users.update({
+    imageURL: req.body.imageURL,
+  } ,
+    {where:{id: req.params.id}}
+  )
+  .then(() => res.status(200).json({ message: 'Photo Utilisateur visible !'}))
+  .catch(error => res.status(400).json({ error }));
+};
+
 
 // supprimer un utilisateur
 exports.deleteUser = ( req, res ) => {
