@@ -21,7 +21,7 @@ exports.modifyCheckComment = (req, res, next) =>{
   } ,
     {where:{id: req.params.id}}
   )
-  .then(() => res.status(200).json({ message: 'Comment visible !'}))
+  .then(() => res.status(200).json({ message: 'Comment visible(1) ou pas(0) !'}))
   .catch(error => res.status(400).json({ error }));
 };
 // récupérer tous les comments

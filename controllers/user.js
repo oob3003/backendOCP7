@@ -38,21 +38,10 @@ exports.signup = (req, res, next) => {
   }
 };
 
-// exports.modifyCheckUser = (req, res, next) =>{
-//   console.log(req.body.visible)
-//   models.users.update({
-//     visible: req.body.visible
-//   } ,
-//     {where:{id: req.params.id}}
-//   )
-//   .then(() => res.status(200).json({ message: 'Utilisateur visible !'}))
-//   .catch(error => res.status(400).json({ error }));
-// };
-
 // login
 exports.login = (req, res, next) => {
     let admin;
-    models.users.findOne({where: { email: req.body.email }} && {where: { firstname: req.body.firstname }})  // vérif email et firstname
+    models.users.findOne({where: { email: req.body.email, firstname: req.body.firstname }} ) //&& {where: { firstname: req.body.firstname }})  // vérif email et firstname
     .then(user => { 
       console.log(user.password)
       if (!user) {
@@ -100,11 +89,10 @@ exports.modifyCheckUser = (req, res, next) =>{
   console.log(req.body.status)
   models.users.update({
     status: req.body.status,
-    // visible: req.body.visible
   } ,
     {where:{id: req.params.id}}
   )
-  .then(() => res.status(200).json({ message: 'Utilisateur visible !'}))
+  .then(() => res.status(200).json({ message: 'Utilisateur visible(1) ou pas(0) !'}))
   .catch(error => res.status(400).json({ error }));
 };
 
@@ -135,10 +123,16 @@ exports.findOneUserValidated = ( req, res, next ) => {
       .catch(error => res.status(400).json({ error }));
 };
 // modifier le profil utilisateur pour ajouter une photo
-exports.modifyPhotoUser = (req, res, next) =>{
-  console.log(req.body.imageURL)
+exports.modifyPhotoUser = (req, res, next) => {
+  console.log(req.body.formData)
+
+  const photosObject = req.file ? // vérifie si req.file existe, 
+  { 
+    ...JSON.parse(req.body.formData), // alors on récupère le corps (req.body.formData)
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // on modifie notre image
+  } : { ...req.body }; // si req.file n'existe pas, alors on copie req.body
   models.users.update({
-    imageURL: req.body.imageURL,
+    imageURL: req.body.formData,
   } ,
     {where:{id: req.params.id}}
   )
