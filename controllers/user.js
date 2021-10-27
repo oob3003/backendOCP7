@@ -132,14 +132,13 @@ exports.modifyPhotoUser = (req, res, next) => {
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // on modifie notre image
   } : { ...req.body }; // si req.file n'existe pas, alors on copie req.body
   models.users.update({
-    imageURL: req.body.formData,
+    imageUrl: req.body.formData,
   } ,
     {where:{id: req.params.id}}
   )
   .then(() => res.status(200).json({ message: 'Photo Utilisateur visible !'}))
   .catch(error => res.status(400).json({ error }));
 };
-
 
 // supprimer un utilisateur
 exports.deleteUser = ( req, res ) => {
