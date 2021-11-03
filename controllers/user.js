@@ -3,7 +3,6 @@ const models = require('../models');
 const jwt = require('jsonwebtoken');
 
 const passwordValidator = require('password-validator');
-const { resource } = require('../app');
  
 // Create a schema
 var schema = new passwordValidator();
@@ -98,7 +97,9 @@ exports.modifyCheckUser = (req, res, next) =>{
 
 
 exports.allUsers = ( req, res, next ) => {
-    models.users.findAll()
+    models.users.findAll({
+      order:[["updatedAt","DESC"]],
+    })
         .then(users => res.status(200).json(users))
         .catch(error => res.status(400).json({ error }));
 };
@@ -124,21 +125,17 @@ exports.findOneUserValidated = ( req, res, next ) => {
 };
 // modifier le profil utilisateur pour ajouter une photo
 exports.modifyPhotoUser = (req, res, next) => {
-  console.log(req.body.formData)
-
-  const photosObject = req.file ? // vérifie si req.file existe, 
-  { 
-    ...JSON.parse(req.body.formData), // alors on récupère le corps (req.body.formData)
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // on modifie notre image
-  } : { ...req.body }; // si req.file n'existe pas, alors on copie req.body
+    console.log(req.file)
+    let imageUpload = `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // on modifie notre image
   models.users.update({
-    imageUrl: req.body.formData,
+    imageUrl: imageUpload,
   } ,
     {where:{id: req.params.id}}
   )
   .then(() => res.status(200).json({ message: 'Photo Utilisateur visible !'}))
   .catch(error => res.status(400).json({ error }));
 };
+
 
 // supprimer un utilisateur
 exports.deleteUser = ( req, res ) => {
