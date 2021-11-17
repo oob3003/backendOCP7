@@ -24,14 +24,4 @@ app.use('/post', postRoute);
 app.use('/comment', commentRoute);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-//ajout 10/07
-// app.post('/api/post', (req, res, next) => {
-    // console.log(req.body);
-    // res.status(201).json({
-        // message:'Message créé !'
-    // });
-// }); 
-
-
-
 module.exports = app;

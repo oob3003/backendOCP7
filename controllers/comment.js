@@ -26,7 +26,10 @@ exports.modifyCheckComment = (req, res, next) =>{
 };
 // récupérer tous les comments
 exports.findAllComments = (req, res, next) => {
-  models.comments.findAll()   
+  models.comments.findAll({
+    include: models.posts,
+    include: models.users, 
+  })   
       .then(comments => res.status(200).json(comments))
       .catch(error => res.status(400).json({ error }));
 };
@@ -34,29 +37,11 @@ exports.findAllComments = (req, res, next) => {
 exports.findAllCommentsValidatedForOnePost = (req, res, next) => {
   console.log("OK");
     models.comments.findAll({
-      include: models.posts , //modif du 13/10,
-      where: { postId:req.params.id},
+      include: models.users,
+      include: models.posts ,
+      where: { postId:req.params.id,visible:1},
       order: [["createdAt","DESC"]]
     })
         .then(comments => res.status(200).json(comments))
         .catch(error => res.status(400).json({ error: blabla }));
 };
-
-// exports.findAllCommentsValidated = (req, res, next) => {
-//   models.comments.findAll({
-//     where:{visible:1},
-//     order:[["updatedAt","DESC"]],
-//   })
-//       .then(comments => res.status(200).json(comments))
-//       .catch(error => res.status(400).json({ error }));
-// };
-
-// exports.allCommentsByPost = ( req, res, next ) => {
-//     models.comments.findAll({ 
-//       include: { model: models.users},
-//       where: { userId:req.params.id},
-//       order: [["createdAt","DESC"]]
-//     })
-//         .then(comments => res.status(200).json({ message: 'Liste des comments !'}))//.then(comments => res.status(200).json(comments))
-//         .catch(error => res.status(400).json({ error }));
-//   };

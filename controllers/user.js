@@ -40,7 +40,7 @@ exports.signup = (req, res, next) => {
 // login
 exports.login = (req, res, next) => {
     let admin;
-    models.users.findOne({where: { email: req.body.email, firstname: req.body.firstname }} ) //&& {where: { firstname: req.body.firstname }})  // vérif email et firstname
+    models.users.findOne({where: { email: req.body.email, firstname: req.body.firstname }} ) // vérif email et firstname
     .then(user => { 
       console.log(user.password)
       if (!user) {
@@ -67,13 +67,14 @@ exports.login = (req, res, next) => {
           }else{ 
             return alert("Merci de soumettre votre demande d'accès en créant votre compte")
           }
+          console.log(user.id)
           res.status(200).json({
             admin: admin,
             status: user.status,
             userId: user.id,
             token: jwt.sign(
-              { userId: user._id },
-              'RANDOM_TOKEN', // à modifier pour sécuriser
+              { userId: user.id },
+              'chaussette', // à modifier pour sécuriser
               { expiresIn: '24h' }
             )
           });
@@ -95,7 +96,7 @@ exports.modifyCheckUser = (req, res, next) =>{
   .catch(error => res.status(400).json({ error }));
 };
 
-
+// permet d'obtenir la liste des users
 exports.allUsers = ( req, res, next ) => {
     models.users.findAll({
       order:[["updatedAt","DESC"]],
@@ -103,7 +104,6 @@ exports.allUsers = ( req, res, next ) => {
         .then(users => res.status(200).json(users))
         .catch(error => res.status(400).json({ error }));
 };
-
 exports.findAllUsersValidated = (req, res, next) => {
   models.users.findAll({
     where:{status: 1 || 2},
@@ -113,7 +113,6 @@ exports.findAllUsersValidated = (req, res, next) => {
       .then(users => res.status(200).json(users))
       .catch(error => res.status(400).json({ error }));
 };
-
 // trouver un utilisateur
 exports.findOneUserValidated = ( req, res, next ) => {
   console.log(req.params.id);
@@ -135,8 +134,6 @@ exports.modifyPhotoUser = (req, res, next) => {
   .then(() => res.status(200).json({ message: 'Photo Utilisateur visible !'}))
   .catch(error => res.status(400).json({ error }));
 };
-
-
 // supprimer un utilisateur
 exports.deleteUser = ( req, res ) => {
   models.users.destroy({
@@ -155,15 +152,4 @@ exports.deleteUser = ( req, res ) => {
     .catch(function(error){
       res.status(500).json(error)
     })
-};
-
-
-exports.list = ( req, res, next ) => {
-  models.users.findAll({ 
-    //include: { model: models.users},
-    where: { userId:req.params.id},
-    order: [["createdAt","DESC"]]
-  })
-        .then(posts => res.status(200).json(posts))
-        .catch(error => res.status(400).json({ error }));
 };

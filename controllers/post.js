@@ -24,7 +24,9 @@ exports.modifyCheckPost = (req, res, next) =>{
 };
 
 exports.findAllPosts = (req, res, next) => {
-    models.posts.findAll()
+    models.posts.findAll({
+      include: models.users
+    })
         .then(posts => res.status(200).json(posts))
         .catch(error => res.status(400).json({ error }));
 };
@@ -33,6 +35,7 @@ exports.findAllPostsValidated = (req, res, next) => {
   models.posts.findAll({
     where:{visible:1},
     order:[["updatedAt","DESC"]],
+    include: models.users
   })
       .then(posts => res.status(200).json(posts))
       .catch(error => res.status(400).json({ error }));
@@ -42,6 +45,7 @@ exports.findAllPostsByDate = (req, res, next) => {
   models.posts.findAll({
     where:{visible:1},
     order:[["updatedAt","DESC"]],
+    include: models.users,
     limit: 4
   })
       .then(posts => res.status(200).json(posts))
@@ -50,8 +54,8 @@ exports.findAllPostsByDate = (req, res, next) => {
 
 exports.findOnePosts = (req, res, next) => {
     models.posts.findOne({ 
-      where:{id: req.params.id}
-
+      where:{id: req.params.id},
+      include: models.users
     })
         .then(posts => res.status(200).json(posts))
         .catch(error => res.status(404).json({ error }));
