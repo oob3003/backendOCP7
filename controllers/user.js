@@ -16,6 +16,7 @@ schema
 //.has().digits(2)                              // Must have at least 2 digits
 .has().not().spaces()                           // Should not have spaces
 
+// signup
 exports.signup = (req, res, next) => {
   console.log(req.body);
   if(schema.validate(req.body.password)){
@@ -42,7 +43,6 @@ exports.login = (req, res, next) => {
     let admin;
     models.users.findOne({where: { email: req.body.email, firstname: req.body.firstname }} ) // vérif email et firstname
     .then(user => { 
-      console.log(user.password)
       if (!user) {
         return res.status(401).json({ "error": "true", "msg": 'Utilisateur non trouvé !' });
       }
@@ -67,7 +67,6 @@ exports.login = (req, res, next) => {
           }else{ 
             return alert("Merci de soumettre votre demande d'accès en créant votre compte")
           }
-          console.log(user.id)
           res.status(200).json({
             admin: admin,
             status: user.status,
@@ -90,7 +89,8 @@ exports.modifyCheckUser = (req, res, next) =>{
   models.users.update({
     status: req.body.status,
   } ,
-    {where:{id: req.params.id}}
+    {where:{id: req.params.id}},
+    console.log(req.params.id)
   )
   .then(() => res.status(200).json({ message: 'Utilisateur visible(1) ou pas(0) !'}))
   .catch(error => res.status(400).json({ error }));

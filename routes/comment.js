@@ -1,20 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const commentCtrl = require('../controllers/comment');
-// const auth = require('../middleware/auth');
-// const multer = require('../middleware/multer-config');
-
+const auth = require('../middleware/auth');
 
 // déposer un nouveau comment
-router.post('/',  commentCtrl.createComments); //auth, multer,
-
+router.post('/',auth,commentCtrl.createComments); 
 // traitement de la coche "visible"
-router.put('/:id', commentCtrl.modifyCheckComment); 
-
+router.put('/:id',auth,commentCtrl.modifyCheckComment); 
 // récup ts comments pour un post
-router.get('/allCommentsForOnePost/:id', commentCtrl.findAllCommentsValidatedForOnePost);
-
+router.get('/allCommentsForOnePost/:id',auth,commentCtrl.findAllCommentsValidatedForOnePost);
 // récupérer tous les comments
-router.get('/', commentCtrl.findAllComments);
-//router.get('/latestPosts', postCtrl.findAllPostsByDate);
+router.get('/',auth,commentCtrl.findAllComments);
 module.exports = router;

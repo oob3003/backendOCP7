@@ -11,7 +11,7 @@ exports.createPosts = (req, res, next) =>{
     .then(() => res.status(201).json({ message: 'Post enregistré !'}))
     .catch(error => res.status(400).json({ error }));
 };
-
+// checkbox Post
 exports.modifyCheckPost = (req, res, next) =>{
   console.log(req.body.visible)
   models.posts.update({
@@ -22,7 +22,7 @@ exports.modifyCheckPost = (req, res, next) =>{
   .then(() => res.status(200).json({ message: 'Post visible(1) ou pas(0) !'}))
   .catch(error => res.status(400).json({ error }));
 };
-
+// récupérer tous les posts
 exports.findAllPosts = (req, res, next) => {
     models.posts.findAll({
       include: models.users
